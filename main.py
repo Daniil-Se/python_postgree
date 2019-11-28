@@ -1,5 +1,5 @@
 
-
+import openpyxl as op
 import psycopg2
 from psycopg2.extras import DictCursor #чтобы выводился список вместо кортежа
 
@@ -33,6 +33,18 @@ class postgree_connect:
 		return 'class Object postgree'
 
 
-a = postgree_connect('test_db')
-a.show_table('test_table')
-a.close()
+class open_xlsx:
+
+	def __init__(self):
+		self.wb = op.load_workbook(filename = 'd:/Users/A/Desktop/тест.xlsx')
+		self.sheets = self.wb.sheetnames
+		self.ws1 = self.wb[self.sheets[0]]
+		self.ws1_A_column = self.ws1['A']
+		for row in self.ws1_A_column[1:]:
+			print(row.value)
+
+#a = postgree_connect('test_db')
+#a.show_table('test_table')
+#a.close()
+
+op_xl = open_xlsx()
