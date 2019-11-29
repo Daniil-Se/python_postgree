@@ -49,45 +49,10 @@ class open_xlsx:
 		self.wb = op.load_workbook(filename = file_name)
 		self.sheets = self.wb.sheetnames #загружаем список листов
 
-
 		self.ws = self.wb[self.sheets[sheet_number-1]] #передаем номер листа
 		''' Здесь обращение происходит по индексу, поэтому -> минус один'''
 
-		self.A_column = self.ws['A'] 
-		self.B_column = self.ws['B'] 
-		self.C_column = self.ws['C'] 
-		self.D_column = self.ws['D'] 
-		self.E_column = self.ws['E'] 
-		self.F_column = self.ws['F'] 
-		self.G_column = self.ws['G'] 
-		self.H_column = self.ws['H'] 
-		self.I_column = self.ws['I'] 
-		self.J_column = self.ws['J'] 
-		self.K_column = self.ws['K'] 
-		self.L_column = self.ws['L'] 
-		self.M_column = self.ws['M'] 
-		self.N_column = self.ws['N'] 
-		self.O_column = self.ws['O'] 
-		self.P_column = self.ws['P'] 
-		self.Q_column = self.ws['Q'] 
-		self.R_column = self.ws['R'] 
-		self.S_column = self.ws['S'] 
-		self.T_column = self.ws['T'] 
-		self.U_column = self.ws['U'] 
-		self.V_column = self.ws['V'] 
-		self.W_column = self.ws['W'] 
-		self.X_column = self.ws['X'] 
-		self.Y_column = self.ws['Y'] 
-		self.Z_column = self.ws['Z'] 
-		self.AA_column = self.ws['AA'] 
-		self.AB_column = self.ws['AB'] 
-		self.AC_column = self.ws['AC'] 
-		self.AD_column = self.ws['AD'] 
-		self.AE_column = self.ws['AE'] 
-		self.AF_column = self.ws['AF'] 
-		self.AG_column = self.ws['AG'][1:]
-
-		
+				
 
 	def take_the_values(self, name_column_end, num_of_line):
 		''' Имя колонки писать строкой, этот аргумент определяет конец считывания '''
@@ -106,10 +71,10 @@ class open_xlsx:
 		return tuple(insert_spisok)
 
 
-
-#a = postgree_connect('test_db')
-#a.show_table('test_table')
-#a.close()
-
 op_xl_1 = open_xlsx('d:/Users/A/Desktop/тест.xlsx', 1)
-op_xl_1.take_the_values('AG', 1) 
+
+a = postgree_connect('test_db')
+a.insert('experts.expert_test', op_xl_1.take_the_values('B', 1))
+a.show_table('experts.expert_test')
+a.close()
+
