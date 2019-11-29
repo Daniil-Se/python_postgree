@@ -41,8 +41,6 @@ class postgree_connect:
 
 
 
-
-
 class open_xlsx:
 
 	def __init__(self, file_name, sheet_number):
@@ -91,19 +89,28 @@ class open_xlsx:
 
 		
 
-	def take_the_values(self, name_column_end):
+	def take_the_values(self, name_column_end, num_of_lines):
 		''' Имя колонки писать строкой, этот аргумент определяет конец считывания '''
-		test_cort = []
-		start_index = 1		
-		for column in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-					   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-					   'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG'     				   ]:
+		''' Количество строк писать целочисленным значением '''
+
+		start_end_index = range(1, num_of_lines+1)
+		''' Т.к. значение первой ячейки в excel это название столбца, то стартуем со второй (индекс = 1)'''
+		''' плюс 1 т.к последний элемент не учитывается'''
+
+		for index in start_end_index:
+			insert_spisok = []
+			for column in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+					   		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+					   		'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG'     				   ]:
 						
-			test_cort.append(self.ws[column][1].value)
-			if column == name_column_end:
+				insert_spisok.append(self.ws[column][index].value) 
+
+			if column == name_column_end: # условие отвечающее за выход из цикла, если цикл дошел до нуной нам буквы 
 				break
 
-		print(test_cort)
+			print(tuple(insert_spisok))
+
+		#return
 		
 		'''
 			if column == name_column_end:
@@ -118,4 +125,4 @@ class open_xlsx:
 #a.close()
 
 op_xl_1 = open_xlsx('d:/Users/A/Desktop/тест.xlsx', 1)
-op_xl_1.take_the_values('D')
+op_xl_1.take_the_values('A', 1) 
