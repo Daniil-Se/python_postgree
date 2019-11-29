@@ -41,8 +41,6 @@ class postgree_connect:
 
 
 
-
-
 class open_xlsx:
 
 	def __init__(self, file_name, sheet_number):
@@ -91,31 +89,27 @@ class open_xlsx:
 
 		
 
-	def take_the_values(self, name_column_end):
+	def take_the_values(self, name_column_end, num_of_line):
 		''' Имя колонки писать строкой, этот аргумент определяет конец считывания '''
-		test_cort = []
-		start_index = 1		
+		''' Выводит одну строку под определенным номером '''
+
+		insert_spisok = []
 		for column in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
-					   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-					   'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG'     				   ]:
+					   		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+					   		'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG'     				   ]:
 						
-			test_cort.append(self.ws[column][1].value)
-			if column == name_column_end:
+			insert_spisok.append(self.ws[column][num_of_line].value) 
+
+			if column == name_column_end: # условие отвечающее за выход из цикла, если цикл дошел до нуной нам буквы 
 				break
 
-		print(test_cort)
-		
-		'''
-			if column == name_column_end:
-				break
-			else:
-				for column_value in self.ws[column][1:]:
-					print(column_value.value)
-		'''
+		return tuple(insert_spisok)
+
+
 
 #a = postgree_connect('test_db')
 #a.show_table('test_table')
 #a.close()
 
 op_xl_1 = open_xlsx('d:/Users/A/Desktop/тест.xlsx', 1)
-op_xl_1.take_the_values('D')
+op_xl_1.take_the_values('AG', 1) 
