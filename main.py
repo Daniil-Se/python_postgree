@@ -25,7 +25,7 @@ class postgree_connect:
 	def show_table(self, table_name):
 		''' Для показа всех данных прописывать имя таблицы строкой'''
 
-				self.cursor.execute("SELECT * FROM {}".format(table_name)) 
+		self.cursor.execute("SELECT * FROM {}".format(table_name)) 
 		for row in self.cursor:
 			print(row)
 
@@ -87,19 +87,35 @@ class open_xlsx:
 		self.AD_column = self.ws['AD'] 
 		self.AE_column = self.ws['AE'] 
 		self.AF_column = self.ws['AF'] 
-		self.AG_column = self.ws['AG'] 
+		self.AG_column = self.ws['AG'][1:]
 
+		
 
-	def take_the_values(self, name_column):
+	def take_the_values(self, name_column_end):
 		''' Имя колонки писать строкой, этот аргумент определяет конец считывания '''
-		for row in self.ws1_A_column[1:]:
-			print(row.value)
-		print(len(self.ws1_A_column))
-		#for 
+		test_cort = []
+		start_index = 1		
+		for column in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+					   'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+					   'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG'     				   ]:
+						
+			test_cort.append(self.ws[column][1].value)
+			if column == name_column_end:
+				break
+
+		print(test_cort)
+		
+		'''
+			if column == name_column_end:
+				break
+			else:
+				for column_value in self.ws[column][1:]:
+					print(column_value.value)
+		'''
 
 #a = postgree_connect('test_db')
 #a.show_table('test_table')
 #a.close()
 
 op_xl_1 = open_xlsx('d:/Users/A/Desktop/тест.xlsx', 1)
-#op_xl_1.take_the_values('G')
+op_xl_1.take_the_values('D')
